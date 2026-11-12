@@ -1,0 +1,84 @@
+================================================================================
+  METAL GEAR SOLID RECOMPILED (4K 60FPS 16:9 / 21:9 MASTER EDITION)
+  Port Nativo para PC (Windows x64) — Konami / Hideo Kojima
+================================================================================
+
+¡Bienvenido a la remasterizacion nativa definitiva de Metal Gear Solid en PC!
+Disfruta de la legendaria mision en Shadow Moses a 4K 60FPS, formato panoramico 
+real 16:9 y 21:9 sin estiramiento, supresion de temblor poligonal PGXP, texturas 
+HD y el mitico doblaje oficial en castellano con Alfonso Valles como Solid Snake.
+
+--------------------------------------------------------------------------------
+CARACTERISTICAS PRINCIPALES:
+--------------------------------------------------------------------------------
+- Port Nativo 64-bit compilado directamente a codigo maquina C / LLVM Clang.
+- Resolucion interna 4K UHD nativa con Supersampling (SSAA 2.0x).
+- Panoramico 16:9 y 21:9 Ultrawide con compensacion GTE real (Snake y todo
+  el entorno 3D llenan el 100% de la pantalla sin franjas ni deformacion).
+- PGXP Subpixel Precision: Supresion matematica total del temblor poligonal
+  (polygon wobble / jitter) en Snake, Rex, torretas, guardias y pasillos.
+- Perspective-Correct Texturing: Eliminacion de la distorsion afin en texturas 3D.
+- Audio SPU HQ 48 kHz con interpolacion Gaussiana y latencia ultrabaja.
+- Doblaje Oficial en Castellano: Voces integradas de Alfonso Valles (Snake),
+  Vicente Gil (Campbell) y Conchi Lopez (Meryl).
+- Soporte Completo para 2 CDs: Deteccion inteligente de Disco 1 y Disco 2
+  con cambio de disco en caliente.
+- Control DualShock Analogico: Deteccion automatica de mandos de Xbox,
+  PlayStation (DualSense / DualShock 4) y Switch Pro con sticks analogicos activos.
+- Shaders de Post-procesado Remaster: CAS Sharpening, HDR Bloom en explosiones
+  y chaff, y antialiasing FXAA HQ.
+- Soporte para Packs de Texturas HD (DuckStation): Reemplazo en tiempo real
+  e instalador automatizado en 1-clic (INSTALAR_PACK_TEXTURAS_HD.bat).
+- Master Launcher Moderno: Interfaz visual completa en pantalla completa adaptativa
+  inspirada en los recomp de SNES (Terranigma / Illusion of Time / Sega Rally).
+
+--------------------------------------------------------------------------------
+COMO JUGAR EN 3 PASOS:
+--------------------------------------------------------------------------------
+
+1. Copia tus imagenes de Metal Gear Solid (Disco 1 y Disco 2) en formato .CUE/.BIN
+   o .CHD dentro de la carpeta 'disc\'.
+   
+2. Si tus copias estan en formato .CHD, haz doble clic en 'PREPARAR_DISCOS.bat'
+   para descomprimirlas a CUE/BIN en unos segundos.
+
+3. ¡Listo! Para jugar tienes varias opciones:
+   - 'JUGAR_METAL_GEAR_SOLID.bat' : Abre el Lanzador Maestro Moderno en pantalla
+     completa con todas las opciones graficas, seleccion de disco y presets.
+   - 'MetalGearSolid.exe' : Acceso directo al ejecutable del juego.
+   - 'JUGAR_METAL_GEAR_SOLID_16_9_PANTALLA_COMPLETA.bat' : Arranque directo en 16:9 4K 60FPS.
+   - 'JUGAR_METAL_GEAR_SOLID_21_9_ULTRAWIDE.bat' : Modo 21:9 Ultra-Panoramico.
+   - 'JUGAR_METAL_GEAR_SOLID_4K_43.bat' : Modo 4:3 Clasico retro original 1998.
+   - 'CONFIGURAR_METAL_GEAR_SOLID.bat' : Configurador rapido de opciones.
+
+--------------------------------------------------------------------------------
+CONTROLES EN METAL GEAR SOLID:
+--------------------------------------------------------------------------------
+
+Accion                      Teclado (PC)             Mando Xbox / PlayStation
+--------------------------------------------------------------------------------
+Mover a Snake / Agacharse   Flechas / W A S D        Stick Izquierdo / Cruceta D-Pad
+Disparar (SOCOM / FA-MAS)   Z / Barra Espaciadora    Boton X (Xbox) / Cuadrado (PS)
+Golpear (Combo puño/patada) X                        Boton B (Xbox) / Circulo (PS)
+Agacharse / Arrastrarse     C                        Boton A (Xbox) / Cruz (PS)
+Vista 1ª Persona (Scope)    V                        Boton Y (Xbox) / Triangulo (PS)
+Menu rapido de Armas        E / Shift Derecho        Gatillo RB / R1
+Menu rapido de Equipo       Q / Shift Izquierdo      Gatillo LB / L1
+Abrir Codec (140.85)        Tabulador / Retroceso    Boton View / Back / Select
+Pausa / Menu de Opciones    Intro / Enter            Boton Start / Menu
+Pantalla Completa           Alt + Enter / F11        F11 / Touchpad
+Salir instantaneamente      Escape (Esc)             Escape (Esc)
+
+--------------------------------------------------------------------------------
+INSTALACION DE TEXTURAS HD EN 1-CLIC:
+--------------------------------------------------------------------------------
+Para instalar cualquier pack de texturas HD (formato DuckStation / Beetle):
+1. Arrastra el archivo comprimido (.zip, .rar, .7z) sobre 'INSTALAR_PACK_TEXTURAS_HD.bat'.
+2. El asistente extraera y organizara las texturas en la carpeta correcta:
+   'mods\texture-packs\SLES-01734\replacements\'
+3. Al iniciar el juego, las texturas en alta definicion se inyectaran en tiempo real.
+
+--------------------------------------------------------------------------------
+Nota legal: Este paquete de recompilacion no distribuye ninguna ROM comercial ni
+material protegido. El usuario debe suministrar sus copias de los discos originales.
+================================================================================

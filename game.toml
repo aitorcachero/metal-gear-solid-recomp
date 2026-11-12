@@ -1,0 +1,92 @@
+[game]
+name = "Metal Gear Solid"
+id = "SLES-01734"
+players = 1
+exe = "disc/MGS1.EXE"
+disc = "disc/Metal Gear Solid (Spain) (Disc 1).cue"
+discs = [
+    "disc/Metal Gear Solid (Spain) (Disc 1).cue",
+    "disc/Metal Gear Solid (Spain) (Disc 2).cue",
+]
+load_address = "0x80010000"
+entry_pc = "0x8009A434"
+text_size = "0x0009D000"
+stack_base = "0x801FFFF0"
+
+[prepare_disc]
+out_dir = "disc"
+bin_name = "Metal Gear Solid (Spain) (Disc 1).bin"
+cue_name = "Metal Gear Solid (Spain) (Disc 1).cue"
+boot_exe = "MGS1.EXE"
+known_sizes = [688230480]
+known_md5 = [
+  "c785b4749ae8d1960ad6e7df8ad1c8e7",
+]
+known_sha1 = [
+  "a3a3609dab8355d8162708d703271f21ed29cae8",
+]
+known_crc32 = [
+  "0cc35f6f",
+]
+
+[recompiler]
+seeds = "seeds/ghidra_funcs.txt"
+out_dir = "generated"
+strict = false
+
+[runtime]
+window_title = "Metal Gear Solid Recompiled (4K 60FPS 16:9 Master Edition)"
+memcard_dir = "saves"
+overlay_cache = true
+idle_skip = false
+overlay_region_floor = "0xB0000"
+
+[video]
+fullscreen = 1
+renderer = "opengl"
+internal_resolution = "1440p"
+supersample = 2.0
+resolution_reference_lines = 240
+match_display_max_lines = 2160
+antialiasing_mode = "fxaa_hq"
+texture_filtering = "bilinear"
+texture_lod = "mipmap"
+anisotropic_filtering = 16
+bloom = 0.40
+post_shader = "shaders/remaster_cinematic.pfx"
+geometry_correction = true
+perspective_texturing = true
+pgxp_cpu_mode = false
+pgxp_preserve_projection = false
+pgxp_depth_buffer = true
+dithering = "fine"
+accurate_blending = true
+fmv_chroma_smoothing = true
+fmv_filter = "bicubic"
+render_thread = false
+present_thread = false
+vsync = "on"
+frame_interpolation = false
+frame_interpolation_fps = 0
+offer_frame_interpolation = false
+frame_generation = false
+frame_generation_method = "redraw"
+aspect_ratio = "16:9"
+
+[widescreen]
+offer = true
+offer_ultrawide = true
+gte_game_mode = false
+native_wide = false
+
+[audio]
+buffer_ms = 180
+spu_hq = true
+
+[controller]
+default_mode = "digital"
+
+[netplay]
+require_cue = true
+required_tracks = 1
+required_disc_fp = "690917cfcfe531fa7e77d6d61dbfa26630b1c8e466359d228b99968b1710e38a"

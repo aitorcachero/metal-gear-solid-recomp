@@ -1,0 +1,15 @@
+format_version = 2
+
+[[package]]
+id = "psx.enhancement.hd-textures"
+version = "1.0.0"
+
+[[feature]]
+package_id = "psx.enhancement.hd-textures"
+id = "hd-textures"
+enabled = true
+[feature.values]
+dump = "false"
+replacements = "true"
+[feature.resources]
+pack = "mods/texture-packs/SLES-01734"

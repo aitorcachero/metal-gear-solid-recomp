@@ -1,0 +1,43 @@
+# Build outputs
+/build/
+/build-*/
+/out/
+/dist/
+/.cache/
+/cache/
+__pycache__/
+*.pyc
+
+# Binaries and libraries
+*.obj
+*.o
+*.a
+*.lib
+*.pdb
+*.zip
+*.exe
+
+# Except icon and manifest assets
+!assets/img/*.ico
+
+# Local PlayStation disc assets & saves (never commit copyrighted game roms)
+/disc/
+/saves/
+/bios/
+*.bin
+*.cue
+*.iso
+*.img
+*.sub
+*.ccd
+*.mcd
+*.mcr
+*.chd
+
+# Local runtime logs
+*.log
+psx_last_run_report.json
+psx_freeze_heartbeat.json
+overlay_captures.json
+overlay_captures.json.d/
+settings.toml
