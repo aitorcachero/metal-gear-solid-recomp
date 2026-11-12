@@ -84,7 +84,9 @@ buffer_ms = 180
 spu_hq = true
 
 [controller]
-default_mode = "digital"
+default_mode = "analog"
+device = "gamepad"
+p1_device = "gamepad"
 
 [netplay]
 require_cue = true

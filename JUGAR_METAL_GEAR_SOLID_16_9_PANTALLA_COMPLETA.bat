@@ -19,6 +19,12 @@ echo [audio]
 echo spu_hq = true
 echo.
 echo [controller]
+echo p1_device = "0300fa675e040000130b000023057801"
+echo p1_mode = "analog"
+echo p1_deadzone = 3276
+echo multitap = false
+echo multitap_analog = true
+echo deadzone = 3276
 echo default_mode = "analog"
 ) > "settings.toml"
 

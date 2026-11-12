@@ -770,6 +770,12 @@ vsync = "{self.vsync_enabled.get()}"
 spu_hq = {"true" if self.spu_hq_enabled.get() else "false"}
 
 [controller]
+p1_device = "0300fa675e040000130b000023057801"
+p1_mode = "{self.analog_mode.get()}"
+p1_deadzone = 3276
+multitap = false
+multitap_analog = true
+deadzone = 3276
 default_mode = "{self.analog_mode.get()}"
 
 [disc]
