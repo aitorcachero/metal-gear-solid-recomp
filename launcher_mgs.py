@@ -40,18 +40,18 @@ else:
 def find_game_environment():
     """Localiza el ejecutable recompilado nativo y el directorio de trabajo."""
     candidates = [
+        (BASE_DIR / "metal-gear-solid-recomp" / "build-release" / "Metal_Gear_Solid_Recompiled.exe", BASE_DIR / "metal-gear-solid-recomp" / "build-release"),
+        (BASE_DIR / "build-release" / "Metal_Gear_Solid_Recompiled.exe", BASE_DIR / "build-release"),
         (BASE_DIR / "Metal_Gear_Solid_Recompiled.exe", BASE_DIR),
         (BASE_DIR / "MetalGearSolid.exe", BASE_DIR),
-        (BASE_DIR / "build-release" / "Metal_Gear_Solid_Recompiled.exe", BASE_DIR / "build-release"),
-        (BASE_DIR / "build-release" / "MetalGearSolid.exe", BASE_DIR / "build-release"),
-        (BASE_DIR / "metal-gear-solid-recomp" / "Metal_Gear_Solid_Recompiled.exe", BASE_DIR / "metal-gear-solid-recomp"),
         (BASE_DIR.parent / "metal-gear-solid-recomp" / "build-release" / "Metal_Gear_Solid_Recompiled.exe", BASE_DIR.parent / "metal-gear-solid-recomp" / "build-release"),
     ]
     for exe, work_dir in candidates:
+        if exe.exists() and (work_dir / "disc").exists():
+            return exe.resolve(), work_dir.resolve()
+    for exe, work_dir in candidates:
         if exe.exists():
             return exe.resolve(), work_dir.resolve()
-    if (BASE_DIR / "build-release").exists():
-        return (BASE_DIR / "build-release" / "Metal_Gear_Solid_Recompiled.exe").resolve(), (BASE_DIR / "build-release").resolve()
     return (BASE_DIR / "Metal_Gear_Solid_Recompiled.exe").resolve(), BASE_DIR.resolve()
 
 GAME_EXE, GAME_WORK_DIR = find_game_environment()

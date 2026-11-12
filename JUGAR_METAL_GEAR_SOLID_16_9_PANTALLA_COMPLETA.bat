@@ -1,5 +1,5 @@
 @echo off
-cd /d "%~dp0"
+cd /d "%~dp0metal-gear-solid-recomp\build-release"
 title Metal Gear Solid Recompiled - Modo Panoramico 16:9 4K UHD 60FPS
 
 :: 1. Configurar settings.toml para arranque inmediato en pantalla completa 16:9 4K
@@ -32,27 +32,16 @@ echo path = "disc/Metal Gear Solid (Spain) (Disc 1).cue"
 echo selected = 1
 ) > "settings.toml"
 
-if exist "build-release" (
-    copy /y "settings.toml" "build-release\settings.toml" >nul 2>&1
+:: 2. Lanzar ejecutable optimizado
+if exist "Metal_Gear_Solid_Recompiled.exe" (
+    start "" "Metal_Gear_Solid_Recompiled.exe" --fullscreen --no-launcher %*
+    exit /b
 )
-
-:: 2. Lanzar ejecutable
 if exist "MetalGearSolid.exe" (
     start "" "MetalGearSolid.exe" --fullscreen --no-launcher %*
     exit /b
 )
 
-if exist "Metal_Gear_Solid_Recompiled.exe" (
-    start "" "Metal_Gear_Solid_Recompiled.exe" --fullscreen --no-launcher %*
-    exit /b
-)
-
-if exist "build-release\Metal_Gear_Solid_Recompiled.exe" (
-    cd /d "%~dp0build-release"
-    start "" "Metal_Gear_Solid_Recompiled.exe" --fullscreen --no-launcher %*
-    exit /b
-)
-
-echo [ERROR] No se encontro el ejecutable de Metal Gear Solid.
+echo [ERROR] No se encontro el ejecutable de Metal Gear Solid en build-release.
 pause
 exit /b
