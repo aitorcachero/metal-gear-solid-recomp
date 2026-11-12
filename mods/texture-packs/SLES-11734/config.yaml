@@ -1,0 +1,6 @@
+# DuckStation / PSXRecomp Texture Replacement Configuration for Metal Gear Solid (PAL Spain)
+ReducePaletteRange: true
+ConvertCopiesToWrites: false
+ReplacementScaleLinearFilter: false
+MaxReplacementCacheVRAMUsage: 2048
+MaxHashCacheVRAMUsageMB: 2048

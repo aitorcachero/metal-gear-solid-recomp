@@ -8,7 +8,7 @@ echo [video]
 echo fullscreen = 1
 echo aspect_ratio = "16:9"
 echo internal_resolution = "4k"
-echo supersample = 2.0
+echo supersample = 1.0
 echo geometry_correction = true
 echo pgxp_depth_buffer = true
 echo perspective_texturing = true
@@ -33,7 +33,7 @@ if exist "build-release" (
 )
 
 :: 2. Actualizar game.toml
-powershell -NoProfile -Command "(Get-Content game.toml) -replace 'aspect_ratio = .*', 'aspect_ratio = \"16:9\"' -replace 'supersample = .*', 'supersample = 2.0' -replace 'internal_resolution = .*', 'internal_resolution = \"4k\"' -replace 'fullscreen = .*', 'fullscreen = 1' | Set-Content game.toml -Encoding UTF8"
+powershell -NoProfile -Command "(Get-Content game.toml) -replace 'aspect_ratio = .*', 'aspect_ratio = \"16:9\"' -replace 'supersample = .*', 'supersample = 1.0' -replace 'internal_resolution = .*', 'internal_resolution = \"4k\"' -replace 'fullscreen = .*', 'fullscreen = 1' | Set-Content game.toml -Encoding UTF8"
 if exist "build-release\game.toml" (
     copy /y "game.toml" "build-release\game.toml" >nul 2>&1
 )

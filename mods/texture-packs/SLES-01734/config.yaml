@@ -1,20 +1,6 @@
-# ==============================================================================
-# Configuración de reemplazo de texturas HD para Final Fantasy VIII (SLES-02084)
-# Compatible con el estándar DuckStation y el runtime de psxrecomp
-# ==============================================================================
-
-# Tratamiento de VRAM para animaciones y escrituras de FFVIII
-MaxVRAMWriteSplits: 4
-MaxVRAMWriteCoalesceWidth: 128
-MaxVRAMWriteCoalesceHeight: 128
-ConvertCopiesToWrites: true
-
-# Filtrado de escalado de texturas de alta resolución (suavizado bilineal de reemplazos)
-ReplacementScaleLinearFilter: true
-
-# Reducción de rango de paletas para máxima compatibilidad con packs comunitarios
+# DuckStation / PSXRecomp Texture Replacement Configuration for Metal Gear Solid (PAL Spain)
 ReducePaletteRange: true
-
-# Umbrales mínimos de volcado de texturas
-DumpTextureWidthThreshold: 16
-DumpTextureHeightThreshold: 16
+ConvertCopiesToWrites: false
+ReplacementScaleLinearFilter: false
+MaxReplacementCacheVRAMUsage: 2048
+MaxHashCacheVRAMUsageMB: 2048
