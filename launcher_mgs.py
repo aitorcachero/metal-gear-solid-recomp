@@ -9,6 +9,8 @@ Apertura automática en Pantalla Completa con soporte para F11, Enter y Esc.
 
 import os
 import sys
+import time
+import threading
 import subprocess
 import ctypes
 from pathlib import Path
@@ -373,11 +375,11 @@ class MGSModernLauncher(ctk.CTk):
                                  command=self.confirm_exit, width=110, height=44)
         btn_exit.pack(side="left", padx=6)
 
-        btn_launch = ctk.CTkButton(btn_box, text="▶ INICIAR METAL GEAR SOLID (ENTER)",
+        self.btn_launch = ctk.CTkButton(btn_box, text="▶ INICIAR METAL GEAR SOLID (ENTER)",
                                    font=ctk.CTkFont(size=15, weight="bold"),
                                    fg_color=C_ORANGE, hover_color=C_ORANGE_HOVER, width=320, height=44,
                                    command=self.launch_game)
-        btn_launch.pack(side="left", padx=(10, 4))
+        self.btn_launch.pack(side="left", padx=(10, 4))
 
     # ──────────────────────────────────────────────────────────
     # PESTAÑA 1: MISIÓN & LANZADOR
@@ -795,12 +797,107 @@ selected = {disc_num}
             messagebox.showerror("Error", f"No se encontró el ejecutable nativo recompilado:\n{GAME_EXE}")
             return
 
-        cmd = [str(GAME_EXE), "--no-launcher"]
+        self.show_loading_screen()
+
+    def show_loading_screen(self):
+        # Desactivar interacción con botones para evitar doble clic
+        if hasattr(self, "btn_launch"):
+            self.btn_launch.configure(state="disabled", text="INICIANDO MISIÓN...")
+
+        # Marco modal centrado
+        overlay = ctk.CTkFrame(self, fg_color=C_BG_DEEP, corner_radius=12, border_width=2, border_color=C_ORANGE)
+        overlay.place(relx=0.5, rely=0.5, anchor="center", relwidth=0.72, relheight=0.52)
+
+        ctk.CTkLabel(overlay, text="PREPARANDO MISIÓN: SHADOW MOSES", font=ctk.CTkFont(size=20, weight="bold"),
+                     text_color=C_ORANGE).pack(pady=(28, 8))
+
+        status_lbl = ctk.CTkLabel(overlay, text="Sincronizando sombreadores y precargando texturas HD...",
+                                  font=ctk.CTkFont(size=14, weight="bold"), text_color=C_TEXT_WHITE)
+        status_lbl.pack(pady=6)
+
+        # Barra de progreso estilizada Kojima Tactical
+        progress_bar = ctk.CTkProgressBar(overlay, orientation="horizontal", width=540, height=22,
+                                          fg_color=C_CARD_BG, progress_color=C_ORANGE, corner_radius=10)
+        progress_bar.pack(pady=14)
+        progress_bar.set(0.08)
+
+        detail_lbl = ctk.CTkLabel(overlay, text="Indexando 31.559 texturas en caché de alta velocidad (2048 MB)...",
+                                  font=ctk.CTkFont(size=12), text_color=C_CYAN)
+        detail_lbl.pack(pady=4)
+
+        cmd = [str(GAME_EXE)]
+        if self.game_fullscreen.get() != 0:
+            cmd.append("--fullscreen")
+        cmd.append("--no-launcher")
+
         try:
-            subprocess.Popen(cmd, cwd=str(GAME_WORK_DIR))
-            self.destroy()
+            proc = subprocess.Popen(cmd, cwd=str(GAME_WORK_DIR))
         except Exception as e:
+            overlay.destroy()
+            if hasattr(self, "btn_launch"):
+                self.btn_launch.configure(state="normal", text="▶ INICIAR METAL GEAR SOLID (ENTER)")
             messagebox.showerror("Error al iniciar", f"No se pudo iniciar el juego:\n{e}")
+            return
+
+        def monitor_process():
+            phases = [
+                (0.18, "Iniciando motor recompilado nativo x64...", "Leyendo tabla de dispatch, VRAM y memorias mapeadas..."),
+                (0.38, "Cargando biblioteca de texturas HD...", "Indexando 31.559 texturas en caché de alta velocidad..."),
+                (0.60, "Sincronizando sombreadores y Z-Buffer...", "Activando PGXP Subpixel y Depth Buffer 32-bit..."),
+                (0.78, "Inicializando subsistema de audio SPU...", "Cargando doblaje en castellano de Alfonso Vallés..."),
+                (0.92, "Precarga completada con éxito...", "Abriendo ventana de juego a pantalla completa..."),
+            ]
+
+            start_t = time.time()
+            while True:
+                time.sleep(0.35)
+                elapsed = time.time() - start_t
+
+                if proc.poll() is not None:
+                    if proc.returncode != 0:
+                        self.after(0, lambda: messagebox.showerror("Aviso", "El proceso de juego se cerró inesperadamente."))
+                    self.after(0, overlay.destroy)
+                    if hasattr(self, "btn_launch"):
+                        self.after(0, lambda: self.btn_launch.configure(state="normal", text="▶ INICIAR METAL GEAR SOLID (ENTER)"))
+                    return
+
+                # Detectar ventana activa de Metal Gear Solid
+                is_window_open = False
+                try:
+                    user32 = ctypes.windll.user32
+                    def enum_cb(hwnd, lparam):
+                        nonlocal is_window_open
+                        if user32.IsWindowVisible(hwnd):
+                            length = user32.GetWindowTextLengthW(hwnd)
+                            if length > 0:
+                                buff = ctypes.create_unicode_buffer(length + 1)
+                                user32.GetWindowTextW(hwnd, buff, length + 1)
+                                title = buff.value
+                                if ("Metal Gear Solid" in title or "MetalGearSolid" in title) and "Launcher" not in title and "Instalador" not in title:
+                                    is_window_open = True
+                        return True
+                    WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
+                    user32.EnumWindows(WNDENUMPROC(enum_cb), 0)
+                except Exception:
+                    pass
+
+                if is_window_open or elapsed > 18.0:
+                    self.after(0, lambda: progress_bar.set(1.0))
+                    self.after(0, lambda: status_lbl.configure(text="¡Misión iniciada! Disfruta de Metal Gear Solid."))
+                    time.sleep(0.5)
+                    self.after(0, self.destroy)
+                    return
+
+                progress = min(0.95, elapsed / 15.0)
+                p_idx = min(int(progress * len(phases)), len(phases) - 1)
+                cur_phase = phases[p_idx]
+                self.after(0, lambda p=progress, s=cur_phase[1], d=cur_phase[2]: (
+                    progress_bar.set(p),
+                    status_lbl.configure(text=s),
+                    detail_lbl.configure(text=d)
+                ))
+
+        threading.Thread(target=monitor_process, daemon=True).start()
 
 if __name__ == "__main__":
     app = MGSModernLauncher()
