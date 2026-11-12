@@ -26,19 +26,17 @@ echo multitap = false
 echo multitap_analog = true
 echo deadzone = 3276
 echo default_mode = "analog"
+echo.
+echo [disc]
+echo path = "disc/Metal Gear Solid (Spain) (Disc 1).cue"
+echo selected = 1
 ) > "settings.toml"
 
 if exist "build-release" (
     copy /y "settings.toml" "build-release\settings.toml" >nul 2>&1
 )
 
-:: 2. Actualizar game.toml
-powershell -NoProfile -Command "(Get-Content game.toml) -replace 'aspect_ratio = .*', 'aspect_ratio = \"16:9\"' -replace 'supersample = .*', 'supersample = 1.0' -replace 'internal_resolution = .*', 'internal_resolution = \"4k\"' -replace 'fullscreen = .*', 'fullscreen = 1' | Set-Content game.toml -Encoding UTF8"
-if exist "build-release\game.toml" (
-    copy /y "game.toml" "build-release\game.toml" >nul 2>&1
-)
-
-:: 3. Lanzar ejecutable
+:: 2. Lanzar ejecutable
 if exist "MetalGearSolid.exe" (
     start "" "MetalGearSolid.exe" --fullscreen --no-launcher %*
     exit /b

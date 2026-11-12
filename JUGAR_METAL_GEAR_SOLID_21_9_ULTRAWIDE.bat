@@ -7,7 +7,7 @@ echo [video]
 echo fullscreen = 1
 echo aspect_ratio = "21:9"
 echo internal_resolution = "4k"
-echo supersample = 2.0
+echo supersample = 1.0
 echo geometry_correction = true
 echo pgxp_depth_buffer = true
 echo perspective_texturing = true
@@ -25,15 +25,14 @@ echo multitap = false
 echo multitap_analog = true
 echo deadzone = 3276
 echo default_mode = "analog"
+echo.
+echo [disc]
+echo path = "disc/Metal Gear Solid (Spain) (Disc 1).cue"
+echo selected = 1
 ) > "settings.toml"
 
 if exist "build-release" (
     copy /y "settings.toml" "build-release\settings.toml" >nul 2>&1
-)
-
-powershell -NoProfile -Command "(Get-Content game.toml) -replace 'aspect_ratio = .*', 'aspect_ratio = \"21:9\"' -replace 'supersample = .*', 'supersample = 2.0' -replace 'internal_resolution = .*', 'internal_resolution = \"4k\"' -replace 'fullscreen = .*', 'fullscreen = 1' | Set-Content game.toml -Encoding UTF8"
-if exist "build-release\game.toml" (
-    copy /y "game.toml" "build-release\game.toml" >nul 2>&1
 )
 
 if exist "MetalGearSolid.exe" (
